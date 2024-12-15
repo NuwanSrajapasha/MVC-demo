@@ -19,7 +19,7 @@ public class CustomerDto {
     private String province;
     private String postalCode;
 
-    public CustomerDto() {
+    public CustomerDto(String text, String text1, String text2, double parseDouble, String text3, String text4, String text5, String text6) {
     }
 
     public CustomerDto(String id, String title, String name, String dob, double salary, String address, String city, String province, String postalCode) {

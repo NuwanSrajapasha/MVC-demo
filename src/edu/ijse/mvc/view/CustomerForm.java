@@ -149,6 +149,11 @@ public class CustomerForm extends javax.swing.JFrame {
 
         btnSave.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnSave.setText("Save");
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSaveActionPerformed(evt);
+            }
+        });
 
         btnSave1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnSave1.setText("Update");
@@ -328,6 +333,10 @@ public class CustomerForm extends javax.swing.JFrame {
         searchCustomer();
     }//GEN-LAST:event_tblCustomerMouseClicked
 
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+       saveCustomer();
+    }//GEN-LAST:event_btnSaveActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -443,5 +452,20 @@ public class CustomerForm extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this,e.getMessage());
         }
         
+
+    
+    }
+
+    private void saveCustomer() {
+        CustomerDto dto = new CustomerDto(
+                txtID.getText(),
+                txtTitle.getText(),
+                txtDOB.getText(),
+                Double.parseDouble(txtSalary.getText()),
+                txtAddress.getText(),
+                txtCity.getText(),
+                txtProvince.getText(),
+                txtPostal.getText());
+
     }
 }
