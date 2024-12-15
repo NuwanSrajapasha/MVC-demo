@@ -6,7 +6,11 @@ package edu.ijse.mvc.view;
 
 import edu.ijse.mvc.dto.IthemDto;
 import edu.ijse.mvc.controller.itemController;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import edu.ijse.mvc.db.DBconnection;
+
 
 
 /**
@@ -23,6 +27,7 @@ public class NewJFrame extends javax.swing.JFrame {
      */
     public NewJFrame() {
         initComponents();
+        loadTable();
     }
 
     /**
@@ -49,7 +54,7 @@ public class NewJFrame extends javax.swing.JFrame {
         btnSave1 = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        tblItem = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -84,6 +89,11 @@ public class NewJFrame extends javax.swing.JFrame {
 
         btnUpdate.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnUpdate.setText("Update Item");
+        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateActionPerformed(evt);
+            }
+        });
 
         btnSave1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnSave1.setText("Save Item");
@@ -95,8 +105,13 @@ public class NewJFrame extends javax.swing.JFrame {
 
         btnDelete.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnDelete.setText("Delete Item");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        tblItem.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -107,7 +122,12 @@ public class NewJFrame extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane2.setViewportView(jTable2);
+        tblItem.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblItemMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(tblItem);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -186,8 +206,20 @@ public class NewJFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSave1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSave1ActionPerformed
-        saveitem();
+        saveItem();
     }//GEN-LAST:event_btnSave1ActionPerformed
+
+    private void tblItemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblItemMouseClicked
+        searchItem();
+    }//GEN-LAST:event_tblItemMouseClicked
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        deleteItem();
+    }//GEN-LAST:event_btnDeleteActionPerformed
+
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
+        updateItem();
+    }//GEN-LAST:event_btnUpdateActionPerformed
 
     /**
      * @param args the command line arguments
@@ -229,13 +261,13 @@ public class NewJFrame extends javax.swing.JFrame {
     private javax.swing.JButton btnSave1;
     private javax.swing.JButton btnUpdate;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable2;
     private javax.swing.JLabel lblCode;
     private javax.swing.JLabel lblCode2;
     private javax.swing.JLabel lblCode3;
     private javax.swing.JLabel lblDescription;
     private javax.swing.JLabel lblHeader;
     private javax.swing.JLabel lblQoH;
+    private javax.swing.JTable tblItem;
     private javax.swing.JTextField txtCode;
     private javax.swing.JTextField txtDescription;
     private javax.swing.JTextField txtPack;
@@ -243,25 +275,112 @@ public class NewJFrame extends javax.swing.JFrame {
     private javax.swing.JTextField txtUnitPrice;
     // End of variables declaration//GEN-END:variables
 
-    private void saveitem() {
-    try {
+    private void saveItem(){
         IthemDto itemDto = new IthemDto(
-            txtCode.getText(),
-            txtDescription.getText(),
-            txtPack.getText(),
-            Double.parseDouble(txtUnitPrice.getText()),
-            Integer.parseInt(txtQoH.getText())
+                txtCode.getText(),
+                txtDescription.getText(),
+                txtPack.getText(),
+                Double.parseDouble(txtUnitPrice.getText()),
+                Integer.parseInt(txtQoH.getText())
         );
+        
+        try {
+            String resp = itemController.saveItem(itemDto);
+            JOptionPane.showMessageDialog(this, resp);
+            loadTable();
+            clearForm();
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+    }
+  private void updateItem(){
+        IthemDto itemDto = new IthemDto(
+                txtCode.getText(),
+                txtDescription.getText(),
+                txtPack.getText(),
+                Double.parseDouble(txtUnitPrice.getText()),
+                Integer.parseInt(txtQoH.getText())
+        );
+        
+        try {
+            String resp = itemController.updateItem(itemDto);
+            JOptionPane.showMessageDialog(this, resp);
+            loadTable();
+            clearForm();
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+    }
+    
+    private void deleteItem(){ 
+        try {
+            String resp = itemController.deleteItem(txtCode.getText());
+            JOptionPane.showMessageDialog(this, resp);
+            loadTable();
+            clearForm();
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+    }
 
-        System.out.println(itemDto.toString());
-        String result = itemController.saveItem(itemDto);
-        System.out.println(result); // Optionally display the result
+   private void loadTable() {
+    try {
+        String columns[] = {"Item Code", "Item Description", "Pack Size", "Unit Price", "QoH"};
+        DefaultTableModel dtm = new DefaultTableModel(columns, 0) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        tblItem.setModel(dtm);
+
+        // Retrieve items
+        ArrayList<IthemDto> itemDtos = itemController.getAllItem(); 
+
+        // Populate table
+        for (IthemDto itemDto : itemDtos) { 
+            Object[] rowData = {itemDto.getCode(), itemDto.getDescription(), itemDto.getPacksize(), itemDto.getUnitprice(), itemDto.getQoh()};
+            dtm.addRow(rowData);
+        }
     } catch (Exception e) {
-        e.printStackTrace(); // Log the exception
-        javax.swing.JOptionPane.showMessageDialog(this, "Failed to save item: " + e.getMessage(), "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(this, "Error loading table: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     }
 }
 
+    private void clearForm() {
+         txtCode.setText("");
+        txtDescription.setText("");
+        txtPack.setText("");
+        txtUnitPrice.setText("");
+        txtQoH.setText("");
+    }
+
+    private void searchItem() {
+        String itemCode=tblItem.getValueAt(tblItem.getSelectedRow(), 0).toString();
+        
+        try {
+            IthemDto itemDto = itemController.searchItem(itemCode);
+            if(itemDto != null){
+                txtCode.setText(itemDto.getCode());
+                txtDescription.setText(itemDto.getDescription());
+                txtPack.setText(itemDto.getPacksize());
+                txtUnitPrice.setText(Double.toString(itemDto.getUnitprice()));
+                txtQoH.setText(Integer.toString(itemDto.getQoh()));
+            } else {
+                JOptionPane.showMessageDialog(this, "Item not found");
+            }
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error loading table: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+   
     
     
    

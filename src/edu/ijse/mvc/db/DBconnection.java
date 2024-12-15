@@ -7,7 +7,7 @@ package edu.ijse.mvc.db;
 
 
 import java.sql.Connection;
-import java.SQLDataException;
+import java.sql.SQLDataException;
 import java.sql.DriverManager;
 import java.sql.Driver;
 import java.sql.SQLException;
@@ -22,10 +22,11 @@ public class DBconnection {
     private DBconnection() throws ClassNotFoundException, SQLException{
         Class.forName("com.mysql.cj.jdbc.Driver");
         connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/supermarket", "root", "mysql1");
+        System.out.println("Connected");
 
         
     }
-    public static DBconnection getInstatnce() throws ClassNotFoundException, SQLException{
+    public static DBconnection getInstance() throws ClassNotFoundException, SQLException{
         if(dbconnection==null){
             dbconnection=new DBconnection();
         }
@@ -34,4 +35,5 @@ public class DBconnection {
     public Connection getConnection(){
         return connection;
     }
+   
 }

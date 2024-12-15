@@ -4,6 +4,7 @@
  */
 package edu.ijse.mvc;
 
+import edu.ijse.mvc.view.CustomerForm;
 import edu.ijse.mvc.view.NewJFrame;
 
 /**
@@ -16,7 +17,7 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        new NewJFrame().setVisible(true);
+        new CustomerForm().setVisible(true);
     }
     
 }

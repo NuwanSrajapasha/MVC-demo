@@ -12,7 +12,7 @@ public class IthemDto {
     private String code;
     private String description;
     private String packsize;
-    private double unitprice;
+    private Double unitprice;
     private Integer qoh;
 
     public IthemDto() {
