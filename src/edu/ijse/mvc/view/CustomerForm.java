@@ -39,7 +39,7 @@ public class CustomerForm extends javax.swing.JFrame {
         lblID = new javax.swing.JLabel();
         txtID = new javax.swing.JTextField();
         lblTitle = new javax.swing.JLabel();
-        txtID1 = new javax.swing.JTextField();
+        txtTitle = new javax.swing.JTextField();
         lblName = new javax.swing.JLabel();
         txtName = new javax.swing.JTextField();
         lblDOB = new javax.swing.JLabel();
@@ -51,9 +51,9 @@ public class CustomerForm extends javax.swing.JFrame {
         lblCity = new javax.swing.JLabel();
         txtCity = new javax.swing.JTextField();
         lblPC = new javax.swing.JLabel();
-        txtProvince = new javax.swing.JTextField();
+        txtPostal = new javax.swing.JTextField();
         lblProvince1 = new javax.swing.JLabel();
-        txtProvince1 = new javax.swing.JTextField();
+        txtProvince = new javax.swing.JTextField();
         btnSave = new javax.swing.JButton();
         btnSave1 = new javax.swing.JButton();
         btnSave2 = new javax.swing.JButton();
@@ -78,9 +78,9 @@ public class CustomerForm extends javax.swing.JFrame {
         lblTitle.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblTitle.setText("Title");
 
-        txtID1.addActionListener(new java.awt.event.ActionListener() {
+        txtTitle.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtID1ActionPerformed(evt);
+                txtTitleActionPerformed(evt);
             }
         });
 
@@ -132,18 +132,18 @@ public class CustomerForm extends javax.swing.JFrame {
         lblPC.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblPC.setText("Postal Code");
 
-        txtProvince.addActionListener(new java.awt.event.ActionListener() {
+        txtPostal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtProvinceActionPerformed(evt);
+                txtPostalActionPerformed(evt);
             }
         });
 
         lblProvince1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblProvince1.setText("Province");
 
-        txtProvince1.addActionListener(new java.awt.event.ActionListener() {
+        txtProvince.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtProvince1ActionPerformed(evt);
+                txtProvinceActionPerformed(evt);
             }
         });
 
@@ -167,6 +167,11 @@ public class CustomerForm extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblCustomer.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblCustomerMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblCustomer);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -197,7 +202,7 @@ public class CustomerForm extends javax.swing.JFrame {
                                             .addGap(67, 67, 67)
                                             .addComponent(lblTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(txtID1, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(txtTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGroup(layout.createSequentialGroup()
                                             .addComponent(lblName, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -209,7 +214,7 @@ public class CustomerForm extends javax.swing.JFrame {
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(lblPC, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18)
-                                        .addComponent(txtProvince, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(txtPostal, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(lblCity, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -217,7 +222,7 @@ public class CustomerForm extends javax.swing.JFrame {
                                         .addGap(18, 18, 18)
                                         .addComponent(lblProvince1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtProvince1, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(txtProvince, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(0, 124, Short.MAX_VALUE)))
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -241,7 +246,7 @@ public class CustomerForm extends javax.swing.JFrame {
                         .addComponent(txtID))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(lblTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtID1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(lblName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -265,11 +270,11 @@ public class CustomerForm extends javax.swing.JFrame {
                         .addComponent(txtCity, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(lblProvince1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtProvince1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtProvince, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(lblPC, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtProvince, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtPostal, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(7, 7, 7)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -287,9 +292,9 @@ public class CustomerForm extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtIDActionPerformed
 
-    private void txtID1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtID1ActionPerformed
+    private void txtTitleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTitleActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtID1ActionPerformed
+    }//GEN-LAST:event_txtTitleActionPerformed
 
     private void txtNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNameActionPerformed
         // TODO add your handling code here:
@@ -311,13 +316,17 @@ public class CustomerForm extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCityActionPerformed
 
+    private void txtPostalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPostalActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPostalActionPerformed
+
     private void txtProvinceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtProvinceActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtProvinceActionPerformed
 
-    private void txtProvince1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtProvince1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtProvince1ActionPerformed
+    private void tblCustomerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCustomerMouseClicked
+        searchCustomer();
+    }//GEN-LAST:event_tblCustomerMouseClicked
 
     /**
      * @param args the command line arguments
@@ -374,15 +383,15 @@ public class CustomerForm extends javax.swing.JFrame {
     private javax.swing.JTextField txtCity;
     private javax.swing.JTextField txtDOB;
     private javax.swing.JTextField txtID;
-    private javax.swing.JTextField txtID1;
     private javax.swing.JTextField txtName;
+    private javax.swing.JTextField txtPostal;
     private javax.swing.JTextField txtProvince;
-    private javax.swing.JTextField txtProvince1;
     private javax.swing.JTextField txtSalary;
+    private javax.swing.JTextField txtTitle;
     // End of variables declaration//GEN-END:variables
 
     private void loadTable() {
-        String columns[]={"Customer Name","Customer Title","DOB","Salary","Address","City","Postal Code"};
+        String columns[]={"Customer Name","Customer Title","DOB","Salary","Address","Postal Code"};
         DefaultTableModel dtm=new DefaultTableModel(columns, 0){
           
             public boolean isCellEditable(int row, int column) {
@@ -398,10 +407,36 @@ public class CustomerForm extends javax.swing.JFrame {
                 customerDto.getTitle() + ','+customerDto.getName(),
                 customerDto.getDob(),
                 customerDto.getSalary(),
-                customerDto.getAddress()+","+customerDto.getCity()+","+customerDto.getPostalCode()
+                customerDto.getAddress()+","+customerDto.getCity()+","+customerDto.getProvince(),
+                        customerDto.getPostalCode()
                 };
                 dtm.addRow(rowData);
                 
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this,e.getMessage());
+        }
+        
+    }
+
+    private void searchCustomer() {
+        String custId=(String) tblCustomer.getValueAt(tblCustomer.getSelectedRow(),0).toString();
+        try {
+            CustomerDto customerDto=customerController.searchCustomer(custId);
+            if (customerDto !=null) {
+                txtID.setText(customerDto.getId());
+                txtName.setText(customerDto.getName());
+                txtTitle.setText(customerDto.getTitle());
+                txtDOB.setText(customerDto.getDob());
+                txtSalary.setText(Double.toString(customerDto.getSalary()));
+                txtAddress.setText(customerDto.getAddress());
+                txtCity.setText(customerDto.getCity());
+                txtProvince.setText(customerDto.getProvince());
+                txtPostal.setText(customerDto.getPostalCode());
+                
+            }else{
+               JOptionPane.showMessageDialog(this,"CustomerNotFound."); 
             }
         } catch (Exception e) {
             e.printStackTrace();
