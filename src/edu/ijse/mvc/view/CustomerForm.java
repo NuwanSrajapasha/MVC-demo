@@ -157,9 +157,19 @@ public class CustomerForm extends javax.swing.JFrame {
 
         btnSave1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnSave1.setText("Update");
+        btnSave1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSave1ActionPerformed(evt);
+            }
+        });
 
         btnSave2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnSave2.setText("Delete");
+        btnSave2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSave2ActionPerformed(evt);
+            }
+        });
 
         tblCustomer.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -337,6 +347,14 @@ public class CustomerForm extends javax.swing.JFrame {
        saveCustomer();
     }//GEN-LAST:event_btnSaveActionPerformed
 
+    private void btnSave1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSave1ActionPerformed
+        updateCustomer();
+    }//GEN-LAST:event_btnSave1ActionPerformed
+
+    private void btnSave2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSave2ActionPerformed
+        deleteCustomer();
+    }//GEN-LAST:event_btnSave2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -490,5 +508,41 @@ public class CustomerForm extends javax.swing.JFrame {
         txtProvince.setText("");
         txtSalary.setText("");
         txtTitle.setText("");
+    }
+
+    private void updateCustomer() {
+        CustomerDto dto = new CustomerDto(
+                txtID.getText(), 
+                txtTitle.getText(), 
+                txtName.getText(), 
+                txtDOB.getText(), 
+                Double.parseDouble(txtSalary.getText()),
+                txtAddress.getText(),
+                txtCity.getText(),
+                txtProvince.getText(),
+                txtPostal.getText());
+        try {
+            String resp = customerController.updateCustomer(dto);
+            JOptionPane.showMessageDialog(this, resp);
+            loadTable();
+            cleanTable();
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+    }
+
+    private void deleteCustomer() {
+        String custId=txtID.getText();
+        try {
+            String resp = customerController.deleteCustomer(custId);
+            JOptionPane.showMessageDialog(this, resp);
+            loadTable();
+            cleanTable();
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+        
     }
 }

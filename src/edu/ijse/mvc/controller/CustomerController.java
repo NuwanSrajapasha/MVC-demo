@@ -27,8 +27,22 @@ public class CustomerController {
        }
 
     public String saveCustomer(CustomerDto dto) throws Exception {
-    return customerModel.saveCustomer(dto);
-}
+        String resp = customerModel.saveCustomer(dto);
+        return resp;
+    }
+
+    public String updateCustomer(CustomerDto dto) throws Exception {
+        String resp = customerModel.updateCustomer(dto);
+        return resp;
+
+    }
+
+    public String deleteCustomer(String custId) throws Exception {
+        String resp = customerModel.deleteCustomer(custId);
+        return resp;
+        
+       
+    }
 
 
 }

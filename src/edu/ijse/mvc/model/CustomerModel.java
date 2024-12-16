@@ -75,6 +75,37 @@ public class CustomerModel {
         
         return statement.executeUpdate() > 0 ? "Success" : "Fail";
     }
+    
+    public String updateCustomer(CustomerDto dto) throws Exception {
+        String sql = "UPDATE Customer SET CustTitle=?, CustName=?, DOB=?,"
+                + " salary=?, CustAddress=?, City=?, Province=?,"
+                + " PostalCode=? WHERE CustID = ?";
+        Connection connection = DBconnection.getInstance().getConnection();
+        PreparedStatement statement = connection.prepareStatement(sql);
+
+        statement.setString(1, dto.getTitle());
+        statement.setString(2, dto.getName());
+        statement.setString(3, dto.getDob());
+        statement.setDouble(4, dto.getSalary());
+        statement.setString(5, dto.getAddress());
+        statement.setString(6, dto.getCity());
+        statement.setString(7, dto.getProvince());
+        statement.setString(8, dto.getPostalCode());
+        statement.setString(9, dto.getId());
+
+        return statement.executeUpdate() > 0 ? "Success" : "Fail";
+    }
+
+    public String deleteCustomer(String custId)throws Exception{
+        String sql = "DELETE from Customer WHERE CustID=?";
+        Connection connection = DBconnection.getInstance().getConnection();
+        PreparedStatement statement = connection.prepareStatement(sql);
+
+        statement.setString(1, custId);
+
+        return statement.executeUpdate() > 0 ? "Success" : "Fail";
+
+    }
 
     
 }
