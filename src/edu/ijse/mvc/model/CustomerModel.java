@@ -59,5 +59,22 @@ public class CustomerModel {
         return null;
     }
 
+    public String saveCustomer(CustomerDto dto) throws Exception {
+        String sql = "INSERT INTO Customer VALUES(?,?,?,?,?,?,?,?,?)";
+        Connection connection = DBconnection.getInstance().getConnection();
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setString(1, dto.getId());
+        statement.setString(2, dto.getTitle());
+        statement.setString(3, dto.getName());
+        statement.setString(4, dto.getDob());
+        statement.setDouble(5, dto.getSalary());
+        statement.setString(6, dto.getAddress());
+        statement.setString(7, dto.getCity());
+        statement.setString(8, dto.getProvince());
+        statement.setString(9, dto.getPostalCode());
+        
+        return statement.executeUpdate() > 0 ? "Success" : "Fail";
+    }
+
     
 }

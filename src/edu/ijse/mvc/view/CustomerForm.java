@@ -366,6 +366,7 @@ public class CustomerForm extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new CustomerForm().setVisible(true);
             }
@@ -458,14 +459,36 @@ public class CustomerForm extends javax.swing.JFrame {
 
     private void saveCustomer() {
         CustomerDto dto = new CustomerDto(
-                txtID.getText(),
-                txtTitle.getText(),
-                txtDOB.getText(),
+                txtID.getText(), 
+                txtTitle.getText(), 
+                txtName.getText(), 
+                txtDOB.getText(), 
                 Double.parseDouble(txtSalary.getText()),
                 txtAddress.getText(),
                 txtCity.getText(),
                 txtProvince.getText(),
                 txtPostal.getText());
+        try {
+            String resp = customerController.saveCustomer(dto);
+            JOptionPane.showMessageDialog(this, resp);
+            loadTable();
+            cleanTable();
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+        
+    }
 
+    private void cleanTable() {
+        txtAddress.setText("");
+        txtCity.setText("");
+        txtDOB.setText("");
+        txtID.setText("");
+        txtName.setText("");
+        txtPostal.setText("");
+        txtProvince.setText("");
+        txtSalary.setText("");
+        txtTitle.setText("");
     }
 }
